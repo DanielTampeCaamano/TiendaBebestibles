@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import Carrito from '@/services/carrito.service'
 export default {
   data() {
     return {
@@ -37,6 +38,15 @@ export default {
       ],
       items: [],
     };
+  },
+  mounted() {
+      
+  },
+  methods: {
+    async recuperarCarrito(){
+        const { data } = await Carrito.getCarritoFromUser()
+        this.items= data.carrito;
+    }
   },
 };
 </script>

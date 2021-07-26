@@ -1,4 +1,5 @@
-import axios from 'axios'
+import axios from 'axios';
+import { request, responseError } from './api.interceptor';
 class ApiCocktails {
     constructor() {
         this.resource = axios.create({
@@ -10,13 +11,21 @@ class ApiCocktails {
                 }
             }
         })
+        this.resource.interceptors.request.use(request);
+        this.resource.interceptors.response.use(res => res, responseError);
     }
     randomCocktail() {
-        return this.resource.get('random.php')
+        return this.resource.get('random.php').then(function (response) {
+            console.log(response.data);
+            return response
+        }).catch(function (error) {
+            console.error(error);
+        });
     }
     popularCocktails(){
         return this.resource.get('popular.php').then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -24,6 +33,7 @@ class ApiCocktails {
     latestCocktails(){
         return this.resource.get('latest.php').then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -31,6 +41,7 @@ class ApiCocktails {
     listAlcoholicFilters(){
         return this.resource.get('list.php',{params: {a:'list'}}).then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -38,25 +49,16 @@ class ApiCocktails {
     listGlasses(){
         return this.resource.get('list.php',{params: {g:'list'}}).then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
     }
     listIngredients(){
-        var axios = require("axios").default;
-
-        var options = {
-          method: 'GET',
-          url: 'https://the-cocktail-db.p.rapidapi.com/list.php',
-          params: {i: 'list'},
-          headers: {
-            'x-rapidapi-key': '961e8f6d88msh3a847341ea7a39cp1f4bf1jsnb2b772990387',
-            'x-rapidapi-host': 'the-cocktail-db.p.rapidapi.com'
-          }
-        };
-        
-        axios.request(options).then(function (response) {
-            console.log(response.data);
+        return this.resource.get('https://the-cocktail-db.p.rapidapi.com/list.php',
+          {params: {i: 'list'}}).then(function (response) {
+            //console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -64,6 +66,7 @@ class ApiCocktails {
     listCategories(){
         return this.resource.get('list.php',{params: {c:'list'}}).then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -71,6 +74,7 @@ class ApiCocktails {
     filterByIngredients(nombres){
         return this.resource.get('filter.php',{params: {i:`${nombres}`}}).then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -78,6 +82,7 @@ class ApiCocktails {
     filterDrinksByType(tipo){
         return this.resource.get('filter.php',{params: {a:`${tipo}`}}).then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -85,6 +90,7 @@ class ApiCocktails {
     filterDrinksByCategory(categoria){
         return this.resource.get('filter.php',{params: {i:`${categoria}`}}).then(function (response) {
             console.log(response.data);
+            return response
         }).catch(function (error) {
             console.error(error);
         });
@@ -92,6 +98,7 @@ class ApiCocktails {
     lookupIngredientById(id){
         return this.resource.get('lookup.php',{params: {iid:`${id}`}}).then(function (response) {
             console.log(response.data);
+            return response.data
         }).catch(function (error) {
             console.error(error);
         });
@@ -99,6 +106,7 @@ class ApiCocktails {
     lookupCocktailById(id){
         return this.resource.get('search.php',{params: {i:`${id}`}}).then(function (response) {
             console.log(response.data);
+            return response.data
         }).catch(function (error) {
             console.error(error);
         });
@@ -106,6 +114,7 @@ class ApiCocktails {
     searchCocktail(nombre){
         return this.resource.get('search.php',{params: {i:`${nombre}`}}).then(function (response) {
             console.log(response.data);
+            return response.data
         }).catch(function (error) {
             console.error(error);
         });
@@ -113,6 +122,7 @@ class ApiCocktails {
     searchIngredient(ingrediente){
         return this.resource.get('search.php',{params: {i:`${ingrediente}`}}).then(function (response) {
             console.log(response.data);
+            return response.data
         }).catch(function (error) {
             console.error(error);
         });
@@ -120,10 +130,11 @@ class ApiCocktails {
     searchByIngredient(ingrediente){
         return this.resource.get('filter.php',{params: {i:`${ingrediente}`}}).then(function (response) {
             console.log(response.data);
+            return response.data
         }).catch(function (error) {
-            console.error(error);
+            console.error(error.response);
         });
     }
 }
 
-export default ApiCocktails
+export default new ApiCocktails()

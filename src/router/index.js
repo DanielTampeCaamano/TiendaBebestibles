@@ -8,21 +8,25 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: { requiresAuth: true },
     component: () => import('@/views/Home'),
   },
   {
     path: '/carrito',
     name: 'Carrito',
+    meta: { requiresAuth: true },
     component: () => import('@/views/Carrito')
   },
   {
     path: '/mezclador',
     name: 'Mezclador',
+    meta: { requiresAuth: true },
     component: () => import('@/views/Mezclador')
   },
   {
     path: '/ingredientes',
     name: 'Ingredientes',
+    meta: { requiresAuth: true },
     component: () => import('@/views/Ingredientes')
   },
   {
@@ -74,7 +78,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: '/'
+    redirect: '/auth/login'
   }
 ]
 
