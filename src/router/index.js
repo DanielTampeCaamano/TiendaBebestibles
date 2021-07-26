@@ -13,16 +13,19 @@ const routes = [
   {
     path: '/carrito',
     name: 'Carrito',
+    meta: { requiresAuth: true },
     component: () => import('@/views/Carrito')
   },
   {
     path: '/mezclador',
     name: 'Mezclador',
+    meta: { requiresAuth: true },
     component: () => import('@/views/Mezclador')
   },
   {
     path: '/ingredientes',
     name: 'Ingredientes',
+    meta: { requiresAuth: true },
     component: () => import('@/views/Ingredientes')
   },
   {

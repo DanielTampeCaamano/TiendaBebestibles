@@ -51,12 +51,12 @@ export default {
     };
   },
   mounted() {
-    this.listarIngredientes()
+      this.listarIngredientes()
   },
   methods: {
     async listarIngredientes() {
       const { data } = await Api.listIngredients();
-      console.log(data)
+      this.items = data.drinks;
     },
   },
 };
