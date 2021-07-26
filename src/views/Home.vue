@@ -4,6 +4,7 @@
       <b-col sm="9">
         <h2>Busqueda</h2>
         <b-form-input
+          @click="agregarItem()"
           id="busqueda"
           type="search"
           placeholder="Ingrese algun parametro de busqueda"
@@ -23,7 +24,7 @@
             </b-button>
           </template>
         </b-table>
-        <b-button variant="primary" class="mb-4"> Agregar al carrito </b-button>
+        <b-button variant="primary" class="mb-4" @click="agregarCarrito()"> Agregar al carrito </b-button>
       </b-container>
     </b-row>
   </b-container>
@@ -50,10 +51,16 @@ export default {
         { key: "actions", label: "Actions" },
       ],
       items: [],
+      
     };
   },
   methods: {
-    agregarCarrito() {},
+    agregarCarrito() {
+
+    },
+    agregarItem(){
+
+    }
   },
 };
 </script>
