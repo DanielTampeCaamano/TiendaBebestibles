@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import Api from "@/services/api.cocktails.js";
 export default {
   data() {
     return {
@@ -48,6 +49,15 @@ export default {
       ],
       items: [],
     };
+  },
+  mounted() {
+    this.listarIngredientes()
+  },
+  methods: {
+    async listarIngredientes() {
+      const { data } = await Api.listIngredients();
+      console.log(data)
+    },
   },
 };
 </script>
