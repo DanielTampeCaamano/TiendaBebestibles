@@ -5,7 +5,7 @@ class ApiCocktails {
             baseURL: 'https://the-cocktail-db.p.rapidapi.com/',
             headers: {
                 common: {
-                    'x-rapidapi-key': '961e8f6d88msh3a847341ea7a39cp1f4bf1jsnb2b772990387',
+                    'x-rapidapi-key': '71822baeb0msh7bfd75da728cd02p19fc54jsn2a4aed6719b2',
                     'x-rapidapi-host': 'the-cocktail-db.p.rapidapi.com'
                 }
             }
