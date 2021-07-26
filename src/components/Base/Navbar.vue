@@ -35,6 +35,11 @@
         >
           Ver Ingredientes
         </b-nav-item>
+        <b-nav-item
+          to="/carrito"
+        >
+          Carrito
+        </b-nav-item>
         <b-nav-item-dropdown right>
           <template #button-content>
             {{ userName }}
