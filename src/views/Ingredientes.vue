@@ -3,14 +3,20 @@
     <b-row class="my-1 justify-content-center">
       <b-col sm="9">
         <h2>Catalogo Ingredientes</h2>
-        <b-form-input
-          id="busqueda"
-          type="search"
-          placeholder="Ingrese algun parametro de busqueda"
-        ></b-form-input>
+        <b-form @submit.prevent="filtrarIngredientes">
+          <b-form-input
+            v-model="form.criterioBusqueda"
+            id="busqueda"
+            type="search"
+            placeholder="Ingrese ingrediente, categoria o tipo que desea buscar "
+          ></b-form-input>
+          <b-button type="submit" variant="primary" class="mt-3">
+            Buscar
+          </b-button>
+        </b-form>
       </b-col>
     </b-row>
-    <b-row class="my-1 justify-content-center">
+    <b-row class="mt-5 justify-content-center">
       <b-container>
         <b-table hover :items="items" :fields="fields">
           <template #cell(actions)="row">
@@ -36,26 +42,32 @@ export default {
     return {
       fields: [
         {
-          key: "item",
+          key: "strIngredient1",
           label: "Item",
           sortable: true,
         },
-        {
-          key: "precio",
-          label: "Precio",
-          sortable: true,
-        },
-        { key: "actions", label: "Actions" },
       ],
       items: [],
+      form: {
+        criterioBusqueda: "",
+      },
     };
   },
   mounted() {
-      this.listarIngredientes()
+    this.listarIngredientes();
   },
   methods: {
     async listarIngredientes() {
       const { data } = await Api.listIngredients();
+      console.log(data.drinks);
+      this.items = data.drinks;
+    },
+    async filtrarIngredientes() {
+      this.fields.key = "strDrink";
+      const { data } = await Api.filterByIngredients(
+        this.form.criterioBusqueda
+      );
+      console.log(data.drinks);
       this.items = data.drinks;
     },
   },
