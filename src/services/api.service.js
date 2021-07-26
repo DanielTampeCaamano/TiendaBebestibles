@@ -4,7 +4,7 @@ import { request, responseError } from './api.interceptor';
 class ApiService {
   constructor(route) {
     this.resource = axios.create({
-      baseURL: 'https://https://tienda-bebestibles-back.vercel.app/api/'
+      baseURL: 'http://localhost:3000/api/'
     })
     this.resource.interceptors.request.use(request);
     this.resource.interceptors.response.use(res => res, responseError);

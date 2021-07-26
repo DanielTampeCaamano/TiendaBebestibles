@@ -1,18 +1,56 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <b-container fluid>
+    <b-row class="my-1 justify-content-center">
+      <b-col sm="9" >
+        <h2>Busqueda</h2>
+        <b-form-input id="busqueda" type="search" placeholder="Ingrese algun parametro de busqueda"></b-form-input>
+      </b-col>
+    </b-row>
+    <b-row class="my-1 justify-content-center">
+      <b-container>
+        
+    <b-table hover :items="items" :fields="fields">
+      <template #cell(actions)="row">
+        <b-button variant="danger" size="sm" @click="deleteUser(row.item._id)">
+          Eliminar
+        </b-button>
+      </template>
+    </b-table>
+    <b-button variant="primary" class="mb-4">
+      Agregar al carrito
+    </b-button>
+  </b-container>
+    </b-row>
+  </b-container>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+// import carritoService from "@/services/user.service";
 export default {
-  name: 'Home',
-  components: {
-    HelloWorld
-  }
-}
+  
+  name: "Home",
+  data() {
+    return {
+     fields: [
+        {
+          key: "item",
+          label: "Item",
+          sortable: true,
+        },
+        {
+          key: "precio",
+          label: "Precio",
+          sortable: true,
+        },
+        { key: "actions", label: "Actions" },
+      ],
+      items: [],
+    };
+  },
+  methods: {
+    agregarCarrito(){
+    }
+  },
+};
 </script>
