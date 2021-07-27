@@ -5,14 +5,14 @@
         <h2>Busqueda</h2>
         <b-form @submit.prevent="buscarItem()">
           <b-form-input
-            @click="agregarItem()"
+            @input="agregarItem()"
+            v-model="busqueda"
             id="busqueda"
             type="search"
             placeholder="Ingrese algun parametro de busqueda"
           ></b-form-input>
-          <b-form-select v-model="alcoholFiltroSelected" :options="alcoholFiltro"></b-form-select>
-          <b-form-select v-model="copaFiltroSelected" :options="copaFiltro"></b-form-select>
-          <b-form-select v-model="categoriasFiltroSelected" :options="categoriasFiltro"></b-form-select>
+          <b-form-select @input="filtroAlcohol()" v-model="alcoholFiltroSelected" :options="alcoholFiltro"></b-form-select>
+          <b-form-select @input="filtroCategoria()" v-model="categoriasFiltroSelected" :options="categoriasFiltro"></b-form-select>
         </b-form>
       </b-col>
     </b-row>
@@ -21,11 +21,11 @@
         <b-table hover :items="items" :fields="fields">
           <template #cell(actions)="row">
             <b-button
-              variant="danger"
+              variant="success"
               size="sm"
               @click="deleteUser(row.item._id)"
             >
-              Eliminar
+              Agregar
             </b-button>
           </template>
         </b-table>
@@ -45,24 +45,17 @@ export default {
   name: "Home",
   data() {
     return {
-
+      busqueda:'',
       fields: [
         {
-          key: "item",
+          key: "strDrink",
           label: "Item",
-          sortable: true,
-        },
-        {
-          key: "precio",
-          label: "Precio",
           sortable: true,
         },
         { key: "actions", label: "Actions" },
       ],
       alcoholFiltro:[],
       alcoholFiltroSelected:'',
-      copaFiltro:[],
-      copaFiltroSelected:'',
       categoriasFiltro:[],
       categoriasFiltroSelected:'',
       items: [],
@@ -73,25 +66,35 @@ export default {
   mounted() {
     this.getPopulares();
     this.getUltimos();
-    this.getGlasses();
     this.getCategories();
     this.getAlcoholFilters();
   },
   methods: {
     async getAlcoholFilters(){
       const {data} = await api.listAlcoholicFilters()
-      console.log(data)
+      //console.log(data)
       this.alcoholFiltro = data.drinks.map((alcohol) => alcohol.strAlcoholic)
+    },
+    async filtroAlcohol(){
+      const {data} = await api.filterDrinksByType(this.alcoholFiltroSelected)
+      console.log(data)
+      this.items = data.drinks
     },
     async getCategories(){
       const {data} = await api.listCategories()
       //console.log(data)
       this.categoriasFiltro = data.drinks.map((categoria) => categoria.strCategory)
     },
-    async getGlasses(){
-      const {data} = await api.listGlasses()
+    async filtroCategoria(){
+      const {data} = await api.filterDrinksByCategory(this.categoriasFiltroSelected)
       //console.log(data)
-      this.copaFiltro = data.drinks.map((copa) => copa.strGlass)
+      this.items = data.drinks
+    },
+    async buscarItem(){
+      const {data} = await api.filterByIngredients(this.busqueda)
+      console.log(this.busqueda)
+      console.log(data)
+      this.items= data.drinks
     },
     async getPopulares() {
       const { data } = await api.popularCocktails();
