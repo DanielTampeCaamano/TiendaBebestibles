@@ -1,6 +1,6 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="primary">
-    <b-navbar-brand to="/">VueApp</b-navbar-brand>
+    <b-navbar-brand to="/">Tienda Bebestibles</b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -25,7 +25,21 @@
         >
           Usuarios
         </b-nav-item>
-
+        <b-nav-item
+          to="/mezclador"
+        >
+          Mezclador
+        </b-nav-item>
+        <b-nav-item
+          to="/ingredientes"
+        >
+          Ver Ingredientes
+        </b-nav-item>
+        <b-nav-item
+          to="/carrito"
+        >
+          Carrito
+        </b-nav-item>
         <b-nav-item-dropdown right>
           <template #button-content>
             {{ userName }}
