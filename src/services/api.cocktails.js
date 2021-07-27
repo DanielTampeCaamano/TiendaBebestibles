@@ -73,7 +73,7 @@ class ApiCocktails {
     }
     filterByIngredients(nombres){
         return this.resource.get('filter.php',{params: {i:`${nombres}`}}).then(function (response) {
-            console.log(response.data);
+            //console.log(response.data);
             return response
         }).catch(function (error) {
             console.error(error);
@@ -121,7 +121,7 @@ class ApiCocktails {
     }
     searchIngredient(ingrediente){
         return this.resource.get('search.php',{params: {i:`${ingrediente}`}}).then(function (response) {
-            console.log(response.data);
+            
             return response.data
         }).catch(function (error) {
             console.error(error);
